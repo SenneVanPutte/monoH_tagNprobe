@@ -70,6 +70,10 @@ for(int i=0; i<systematicVar.size();i++)
    double pt_bins_Mu17_Mu8_leg2[18] = {0,6,7,8,9,10,12,15,20,25,30,35,40,45,50,60,100,200};
    TFile *file = new TFile(output.Data(),"RECREATE");
 
+   // MonoHiggs
+   double pt_bins_IsoMu27orMu50[17] = {0,10,20,23,25,26,27,28,29,30,35,40,45,50,60,100,200};
+
+
 // HLT IsoMu27
    TH1F *h_IsoMu27_pt_total = new TH1F("IsoMu27_pt_total","IsoMu27_pt",16,pt_bins_IsoMu27);
    TH1F *h_IsoMu27_eta_total = new TH1F("IsoMu27_eta_total","IsoMu27_eta",13,eta_bins);
@@ -127,6 +131,21 @@ for(int i=0; i<systematicVar.size();i++)
    h_Mu17_Mu8_leg2_eta_Iso_pass->Sumw2();
    h_Mu17_Mu8_leg2_pt_eta_Iso_pass->Sumw2();
 
+// MonoHiggs
+   TH1F *h_IsoMu27orMu50_pt_total = new TH1F("IsoMu27orMu50_pt_total","IsoMu27orMu50_pt",16,pt_bins_IsoMu27orMu50);
+   TH1F *h_IsoMu27orMu50_eta_total = new TH1F("IsoMu27orMu50_eta_total","IsoMu27orMu50_eta",13,eta_bins);
+   TH2F *h_IsoMu27orMu50_pt_eta_total = new TH2F("IsoMu27orMu50_pt_eta_total","IsoMu27orMu50_pt_eta",13,eta_bins,16,pt_bins_IsoMu27orMu50);
+   TH1F *h_IsoMu27orMu50_pt_pass = new TH1F("IsoMu27orMu50_pt_pass","IsoMu27orMu50_pt",16,pt_bins_IsoMu27orMu50);
+   TH1F *h_IsoMu27orMu50_eta_pass = new TH1F("IsoMu27orMu50_eta_pass","IsoMu27orMu50_eta",13,eta_bins);
+   TH2F *h_IsoMu27orMu50_pt_eta_pass = new TH2F("IsoMu27orMu50_pt_eta_pass","IsoMu27orMu50_pt_eta",13,eta_bins,16,pt_bins_IsoMu27orMu50);
+
+   h_IsoMu27orMu50_pt_total->Sumw2();
+   h_IsoMu27orMu50_eta_total->Sumw2();
+   h_IsoMu27orMu50_pt_eta_total->Sumw2();
+   h_IsoMu27orMu50_pt_pass->Sumw2();
+   h_IsoMu27orMu50_eta_pass->Sumw2();
+   h_IsoMu27orMu50_pt_eta_pass->Sumw2();
+
 
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -142,7 +161,10 @@ for(int i=0; i<systematicVar.size();i++)
       bool tag_MuKin = mu_pt->at(first)>ptTag && fabs(mu_eta->at(first))<2.4;
       bool tag_TriggerMatch = passFilterIsoMu27->at(first);
 
-      if(!(tag_MuId && tag_MuKin && tag_TriggerMatch))continue;
+      // MonoHiggs
+      bool tag_TriggerMatch_monoH = passFilterIsoMu27->at(first) || passFilterMu50->at(first);
+
+      if(!(tag_MuId && tag_MuKin && tag_TriggerMatch_monoH))continue;
 
       bool probe_MuId = HWW_Muon_Def(second, mu_pt->at(second));
       bool probe_MuKin = fabs(mu_eta->at(second))<2.4;
@@ -191,6 +213,17 @@ for(int i=0; i<systematicVar.size();i++)
       h_Mu17_Mu8_leg2_pt_Iso_pass->Fill(mu_pt->at(second)); 
      if(mu_pt->at(second)>12) h_Mu17_Mu8_leg2_eta_Iso_pass->Fill(mu_eta->at(second)); 
       h_Mu17_Mu8_leg2_pt_eta_Iso_pass->Fill(mu_eta->at(second),mu_pt->at(second)); 
+      } 
+
+      // MonoHiggs
+      h_IsoMu27orMu50_pt_total->Fill(mu_pt->at(second)); 
+      if(mu_pt->at(second)>30)h_IsoMu27orMu50_eta_total->Fill(mu_eta->at(second)); 
+      h_IsoMu27orMu50_pt_eta_total->Fill(mu_eta->at(second),mu_pt->at(second)); 
+
+      if (passFilterMu50->at(second) || passFilterIsoMu27->at(second)){
+      h_IsoMu27orMu50_pt_pass->Fill(mu_pt->at(second)); 
+      if(mu_pt->at(second)>30) h_IsoMu27orMu50_eta_pass->Fill(mu_eta->at(second)); 
+      h_IsoMu27orMu50_pt_eta_pass->Fill(mu_eta->at(second),mu_pt->at(second)); 
       } 
 
       // if (Cut(ientry) < 0) continue;

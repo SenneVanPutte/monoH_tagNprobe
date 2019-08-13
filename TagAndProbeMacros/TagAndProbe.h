@@ -156,6 +156,11 @@ public :
    vector<bool>    *passFilterMu17_Mu8_IsoLeg;
    vector<bool>    *passFilterMu12_Ele23_legMu;
    vector<bool>    *passFilterMu23_Ele12_legMu;
+   // MonoHiggs
+   vector<bool>    *passFilterDoubleEle33;
+   vector<bool>    *passFilterDoubleEle33_leg;
+   vector<bool>    *passFilterMu50;
+
 
    // List of branches
    TBranch        *b_run;   //!
@@ -283,6 +288,10 @@ public :
    TBranch        *b_passFilterMu17_Mu8_IsoLeg;   //!
    TBranch        *b_passFilterMu12_Ele23_legMu;   //!
    TBranch        *b_passFilterMu23_Ele12_legMu;   //!
+   // MonoHiggs
+   TBranch        *b_passFilterDoubleEle33;   //!
+   TBranch        *b_passFilterDoubleEle33_leg;   //!
+   TBranch        *b_passFilterMu50;   //!
 
    TagAndProbe(TTree *tree=0);
    virtual ~TagAndProbe();
@@ -469,6 +478,11 @@ void TagAndProbe::Init(TTree *tree)
    passFilterMu17_Mu8_IsoLeg = 0;
    passFilterMu12_Ele23_legMu = 0;
    passFilterMu23_Ele12_legMu = 0;
+   // MonoHiggs   
+   passFilterDoubleEle33 = 0;
+   passFilterDoubleEle33_leg = 0;
+   passFilterMu50 = 0;
+
    // Set branch addresses and branch pointers
    if (!tree) return;
    fChain = tree;
@@ -600,6 +614,11 @@ void TagAndProbe::Init(TTree *tree)
    fChain->SetBranchAddress("passFilterMu17_Mu8_IsoLeg", &passFilterMu17_Mu8_IsoLeg, &b_passFilterMu17_Mu8_IsoLeg);
    fChain->SetBranchAddress("passFilterMu12_Ele23_legMu", &passFilterMu12_Ele23_legMu, &b_passFilterMu12_Ele23_legMu);
    fChain->SetBranchAddress("passFilterMu23_Ele12_legMu", &passFilterMu23_Ele12_legMu, &b_passFilterMu23_Ele12_legMu);
+   // MonoHiggs
+   fChain->SetBranchAddress("passFilterDoubleEle33", &passFilterDoubleEle33, &b_passFilterDoubleEle33);
+   fChain->SetBranchAddress("passFilterDoubleEle33_leg", &passFilterDoubleEle33_leg, &b_passFilterDoubleEle33_leg);
+   fChain->SetBranchAddress("passFilterMu50", &passFilterMu50, &b_passFilterMu50);
+
    Notify();
 }
 

@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 import os
 
-process = cms.Process("Ntupler")
+process = cms.Process("NtuplerMonoH")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
@@ -88,7 +88,7 @@ for idmod in my_id_modules:
 #
 # Configure the ntupler module
 #
-process.ntupler = cms.EDAnalyzer('Ntupler',
+process.ntupler = cms.EDAnalyzer('Ntupler_monoH',
                                  # The module automatically detects AOD vs miniAOD, so we configure both
                                  #
                                  # Common to all formats objects
@@ -117,6 +117,16 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
                                                              "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
                                                              "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
                                                              "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
+                                                             # MonoHiggs
+                                                             "HLT_Mu17",
+                                                             "HLT_Mu50",
+                                                             "HLT_DoubleEle33_CaloIdL_MW",
+                                                             "HLT_DoubleEle27_CaloIdL_MW",
+                                                             "HLT_DoubleEle25_CaloIdL_MW",
+                                                             "HLT_Ele27_Ele37_CaloIdL_MW_v",
+                                                             "HLT_Mu27_Ele37_CaloIdL_MW_v",
+                                                             "HLT_Mu37_Ele27_CaloIdL_MW_v",
+                                                             "HLT_Mu37_TkMu27_CaloIdL_MW_v"
 								),
                                  filterToMatch= cms.vstring(
                                   			  "hltEle35noerWPTightGsfTrackIsoFilter",
@@ -129,7 +139,24 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
 							  "hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered12",
 							  "hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
 							  "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered23",
-							  "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter"
+							  "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
+                                                          # MonoHiggs
+                                                          #"hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q",
+                                                          #"hltDiEle33CaloIdLMWPMS2UnseededFilter",
+                                                          "hltEle37CaloIdLMWPMS2UnseededFilter",
+                                                          "hltEle27CaloIdLMWPMS2UnseededFilter",
+                                                          "hltDiEle33CaloIdLMWPMS2UnseededFilter",
+                                                          "hltEle33CaloIdLMWPMS2Filter",
+                                                          "hltEle27CaloIdLMWPMS2Filter",
+                                                          "hltEle25CaloIdLMWPMS2Filter",
+                                                          "hltEle37CaloIdLMWPMS2UnseededFilter",
+                                                          "hltDiEle27CaloIdLMWPMS2UnseededFilter",
+                                                          "hltL3fL1sMu10lqL1f0L2f10L3Filtered17",
+                                                          "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q",
+                                                          "hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered27Q",
+                                                          "hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered37Q",
+                                                          "hltL3fL1sMu16orMu25L1f0L2f25L3Filtered37",
+                                                          "hltDiMuonGlbFiltered37TrkFiltered27"
 										),
 				HLTprocess = cms.string("HLT"),
 

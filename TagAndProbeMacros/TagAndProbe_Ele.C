@@ -68,6 +68,10 @@ for(int i=0; i<systematicVar.size();i++)
    double pt_bins_Ele23_Ele12_leg1[18] = {0,10,20,21,22,23,24,25,26,30,35,40,45,50,60,100,200};
    double pt_bins_Ele23_Ele12_leg2[18] = {0,10,11,12,13,14,15,20,25,30,35,40,45,50,60,100,200};
 
+   // MonoHiggs
+   double pt_bins_DoubleEle33[18] = {0,10,20,30,32,33,34,35,36,37,38,40,45,50,60,100,200};
+
+
 // HLT Ele35
    TH1F *h_Ele35_pt_total = new TH1F("Ele35_pt_total","Ele35_pt",16,pt_bins_Ele35);
    TH1F *h_Ele35_eta_total = new TH1F("Ele35_eta_total","Ele35_eta",10,eta_bins);
@@ -113,6 +117,34 @@ for(int i=0; i<systematicVar.size();i++)
    h_Ele23_Ele12_leg2_eta_pass->Sumw2();
    h_Ele23_Ele12_leg2_pt_eta_pass->Sumw2();
 
+// MonoHiggs
+   TH1F *h_DoubleEle33_pt_total = new TH1F("DoubleEle33_pt_total","DoubleEle33_pt",16,pt_bins_DoubleEle33);
+   TH1F *h_DoubleEle33_eta_total = new TH1F("DoubleEle33_eta_total","DoubleEle33_eta",10,eta_bins);
+   TH2F *h_DoubleEle33_pt_eta_total = new TH2F("DoubleEle33_pt_eta_total","DoubleEle33_pt_eta",10,eta_bins,16,pt_bins_DoubleEle33);
+   TH1F *h_DoubleEle33_pt_pass = new TH1F("DoubleEle33_pt_pass","DoubleEle33_pt",16,pt_bins_DoubleEle33);
+   TH1F *h_DoubleEle33_eta_pass = new TH1F("DoubleEle33_eta_pass","DoubleEle33_eta",10,eta_bins);
+   TH2F *h_DoubleEle33_pt_eta_pass = new TH2F("DoubleEle33_pt_eta_pass","DoubleEle33_pt_eta",10,eta_bins,16,pt_bins_DoubleEle33);
+
+   h_DoubleEle33_pt_total->Sumw2();
+   h_DoubleEle33_eta_total->Sumw2();
+   h_DoubleEle33_pt_eta_total->Sumw2();
+   h_DoubleEle33_pt_pass->Sumw2();
+   h_DoubleEle33_eta_pass->Sumw2();
+   h_DoubleEle33_pt_eta_pass->Sumw2();
+
+   TH1F *h_DoubleEle33_leg_pt_total = new TH1F("DoubleEle33_leg_pt_total","DoubleEle33_leg_pt",16,pt_bins_DoubleEle33_leg);
+   TH1F *h_DoubleEle33_leg_eta_total = new TH1F("DoubleEle33_leg_eta_total","DoubleEle33_leg_eta",10,eta_bins);
+   TH2F *h_DoubleEle33_leg_pt_eta_total = new TH2F("DoubleEle33_leg_pt_eta_total","DoubleEle33_leg_pt_eta",10,eta_bins,16,pt_bins_DoubleEle33_leg);
+   TH1F *h_DoubleEle33_leg_pt_pass = new TH1F("DoubleEle33_leg_pt_pass","DoubleEle33_leg_pt",16,pt_bins_DoubleEle33_leg);
+   TH1F *h_DoubleEle33_leg_eta_pass = new TH1F("DoubleEle33_leg_eta_pass","DoubleEle33_leg_eta",10,eta_bins);
+   TH2F *h_DoubleEle33_leg_pt_eta_pass = new TH2F("DoubleEle33_leg_pt_eta_pass","DoubleEle33_leg_pt_eta",10,eta_bins,16,pt_bins_DoubleEle33_leg);
+
+   h_DoubleEle33_leg_pt_total->Sumw2();
+   h_DoubleEle33_leg_eta_total->Sumw2();
+   h_DoubleEle33_leg_pt_eta_total->Sumw2();
+   h_DoubleEle33_leg_pt_pass->Sumw2();
+   h_DoubleEle33_leg_eta_pass->Sumw2();
+   h_DoubleEle33_leg_pt_eta_pass->Sumw2();
 
    Long64_t nbytes = 0, nb = 0;
    for (Long64_t jentry=0; jentry<nentries;jentry++) {
@@ -128,6 +160,9 @@ for(int i=0; i<systematicVar.size();i++)
       bool tag_EleKin = ele_pt->at(first)>ptTag && fabs(ele_etaSC->at(first))<2.5;
       bool tag_TriggerMatch = passFilterEle35->at(first);
 
+      // MonoHiggs
+      // bool tag_TriggerMatch_monoH = passFilterEle35->at(first) || passFilter_monoHSingleEle->at(first);
+
       if(!(tag_EleId && tag_EleKin && tag_TriggerMatch))continue;
 
       //bool probe_EleId = HWW_Electron_Def(second, ele_etaSC->at(second));
@@ -142,6 +177,7 @@ for(int i=0; i<systematicVar.size();i++)
       Z_candLV = tag_eleLV + probe_eleLV;
 
       if (Z_candLV.M()<zMassL || Z_candLV.M() > zMassR) continue;
+
       h_Ele35_pt_total->Fill(ele_pt->at(second)); 
       if(ele_pt->at(second)>40)h_Ele35_eta_total->Fill(ele_etaSC->at(second)); 
       h_Ele35_pt_eta_total->Fill(ele_etaSC->at(second),ele_pt->at(second)); 
@@ -170,6 +206,26 @@ for(int i=0; i<systematicVar.size();i++)
        h_Ele23_Ele12_leg2_pt_eta_pass->Fill(ele_etaSC->at(second),ele_pt->at(second)); 
       } 
 
+      // MonoHiggs
+      h_DoubleEle33_pt_total->Fill(ele_pt->at(second)); 
+      if(ele_pt->at(second)>40)h_DoubleEle33_eta_total->Fill(ele_etaSC->at(second)); 
+      h_DoubleEle33_pt_eta_total->Fill(ele_etaSC->at(second),ele_pt->at(second)); 
+      
+      h_DoubleEle33_leg_pt_total->Fill(ele_pt->at(second)); 
+      if(ele_pt->at(second)>40)h_DoubleEle33_leg_eta_total->Fill(ele_etaSC->at(second)); 
+      h_DoubleEle33_leg_pt_eta_total->Fill(ele_etaSC->at(second),ele_pt->at(second)); 
+
+      if (passFilterDoubleEle33->at(second)){
+      h_DoubleEle33_pt_pass->Fill(ele_pt->at(second)); 
+      if(ele_pt->at(second)>40)h_DoubleEle33_eta_pass->Fill(ele_etaSC->at(second)); 
+      h_DoubleEle33_pt_eta_pass->Fill(ele_etaSC->at(second),ele_pt->at(second)); 
+      } 
+
+      if (passFilterDoubleEle33_leg->at(second)){
+      h_DoubleEle33_leg_pt_pass->Fill(ele_pt->at(second)); 
+      if(ele_pt->at(second)>40)h_DoubleEle33_leg_eta_pass->Fill(ele_etaSC->at(second)); 
+      h_DoubleEle33_leg_pt_eta_pass->Fill(ele_etaSC->at(second),ele_pt->at(second)); 
+      } 
       // if (Cut(ientry) < 0) continue;
     }
 file->Write(); 
@@ -194,19 +250,19 @@ bool convVeto = ele_passConversionVeto->at(i);
 double relIso = ele_relCombIsoWithEA->at(i);
 
 if(fabs(eta) < 1.479){
-if (sieie >= 0.011) return false;
+if (sieie >= 0.011) return false; //
 //if (fabs(dEtaSC) >= 0.004) return false;
-if (hoe >= 0.06) return false;
-if (fabs(eInvMinusPInv) >= 0.013) return false;
-if (dr03TkSumPt_overPt/ele_pt->at(i) >= 0.08) return false;
-if (dr03EcalRecHitSumEt_overPt/ele_pt->at(i) >= 0.15) return false;
-if (dr03HcalDepth1TowerSumEt_overPt/ele_pt->at(i) >= 0.12) return false;
-if (lostHits >= 1) return false;
-if (!convVeto) return false;
-if (relIso >= 0.06) return false;
-if (!passMVAIsoWP90) return false;
-if (ele_d0->at(i)>=0.05) return false;
-if (ele_dz->at(i)>=0.1) return false;
+if (hoe >= 0.06) return false; //
+if (fabs(eInvMinusPInv) >= 0.013) return false; //
+if (dr03TkSumPt_overPt/ele_pt->at(i) >= 0.08) return false; //
+if (dr03EcalRecHitSumEt_overPt/ele_pt->at(i) >= 0.15) return false; //
+if (dr03HcalDepth1TowerSumEt_overPt/ele_pt->at(i) >= 0.12) return false; //
+if (lostHits >= 1) return false; //
+if (!convVeto) return false; //
+if (relIso >= 0.06) return false;//---------------
+if (!passMVAIsoWP90) return false; //
+if (ele_d0->at(i)>=0.05) return false; //
+if (ele_dz->at(i)>=0.1) return false; //
 }
 
 else{

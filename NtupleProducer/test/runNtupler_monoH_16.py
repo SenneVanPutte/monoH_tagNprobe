@@ -1,7 +1,7 @@
 import FWCore.ParameterSet.Config as cms
 import os
 
-process = cms.Process("Ntupler")
+process = cms.Process("NtuplerMonoH16")
 
 process.load("FWCore.MessageService.MessageLogger_cfi")
 
@@ -37,12 +37,19 @@ process.maxEvents = cms.untracked.PSet( input = cms.untracked.int32(100) )
 #
 #inputFilesAOD = cms.untracked.vstring( FileUtils.loadListFromFile (os.environ['CMSSW_BASE']+'/src/Efficiency/Analyzer/test/'+'inputFiles.txt') )
 #
+
+
+
+
+# TODO: What is this?
 inputFilesAOD = cms.untracked.vstring(
 'root://cms-xrd-global.cern.ch//store/data/Run2017C/SingleElectron/AOD/12Sep2017-v1/70000/80EF56E5-69A6-E711-AB37-48FD8E2824D7.root',
     )    
 
 inputFilesMiniAOD = cms.untracked.vstring(
 'root://cms-xrd-global.cern.ch//store/data/Run2017B/SingleElectron/MINIAOD/31Mar2018-v1/90000/FC89D712-AF37-E811-AD13-008CFAC93F84.root'
+
+
 #'root://cms-xrd-global.cern.ch//store/mc/RunIIFall17MiniAOD/DYJetsToLL_M-50_TuneCP5_13TeV-amcatnloFXFX-pythia8/MINIAODSIM/PU2017_94X_mc2017_realistic_v11_ext1-v1/920000/76190FD4-93A5-E811-AA90-A4BF0107E164.root'
 #'root://cms-xrd-global.cern.ch//store/data/Run2017B/MuonEG/MINIAOD/12Sep2017-v1/100000/0423E958-32A3-E711-94AF-1CC1DE1D0AD4.root'
     )
@@ -75,11 +82,15 @@ else :
     dataFormat = DataFormat.MiniAOD
 
 switchOnVIDElectronIdProducer(process, dataFormat)
+# TODO
 # define which IDs we want to produce
 my_id_modules = ['RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V2_cff',
                  'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Fall17_94X_V1_cff',
 		 'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_noIso_V1_cff',
 		 'RecoEgamma.ElectronIdentification.Identification.mvaElectronID_Fall17_iso_V1_cff',
+                 # 2016
+                 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronID_Summer16_80X_V1_cff',
+                 'RecoEgamma.ElectronIdentification.Identification.cutBasedElectronHLTPreselecition_Summer16_V1_cff',
 ]
 
 #add them to the VID producer
@@ -88,7 +99,7 @@ for idmod in my_id_modules:
 #
 # Configure the ntupler module
 #
-process.ntupler = cms.EDAnalyzer('Ntupler',
+process.ntupler = cms.EDAnalyzer('Ntupler_monoH_16',
                                  # The module automatically detects AOD vs miniAOD, so we configure both
                                  #
                                  # Common to all formats objects
@@ -110,26 +121,40 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
                                  l1EGTag      = cms.InputTag("caloStage2Digis","EGamma","RECO"),
                                  l1MuonTag    = cms.InputTag("gmtStage2Digis","Muon","RECO"),
 
-				 pathsToSave  = cms.vstring( "HLT_Ele35_WPTight_Gsf_v",
-                                                             "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_DZ_v",
-                                                             "HLT_Ele23_Ele12_CaloIdL_TrackIdL_IsoVL_v",
-							     "HLT_IsoMu27_v",
-                                                             "HLT_Mu17_TrkIsoVVL_Mu8_TrkIsoVVL_DZ_Mass8",
-                                                             "HLT_Mu12_TrkIsoVVL_Ele23_CaloIdL_TrackIdL_IsoVL_DZ",
-                                                             "HLT_Mu23_TrkIsoVVL_Ele12_CaloIdL_TrackIdL_IsoVL_DZ",
+				 pathsToSave  = cms.vstring( 
+                                                             "HLT_Ele27_WPTight_Gsf_v",
+                                                             "HLT_IsoMu24_v",
+                                                             # MonoHiggs
+                                                             "HLT_Mu50_v",
+                                                             "HLT_DoubleEle33_CaloIdL_MW_v",
+                                                             "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_v",
+                                                             "HLT_DoubleEle33_CaloIdL_GsfTrkIdVL_MW_v",
+                                                             "HLT_Mu27_Ele37_CaloIdL_MW_v",
+                                                             "HLT_Mu37_Ele27_CaloIdL_MW_v",
+                                                             "HLT_Mu30_TkMu11_CaloIdL_MW_v",
+                                                             "HLT_Mu33_Ele33_CaloIdL_MW_v"
 								),
                                  filterToMatch= cms.vstring(
-                                  			  "hltEle35noerWPTightGsfTrackIsoFilter",
-				  			  "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg1Filter",
-				  			  "hltEle23Ele12CaloIdLTrackIdLIsoVLTrackIsoLeg2Filter",
-				 			  "hltL3crIsoL1sMu22Or25L1f0L2f10QL3f27QL3trkIsoFiltered0p07",
-							  "hltL3fL1DoubleMu155fPreFiltered8",
-							  "hltL3fL1DoubleMu155fFiltered17",
-							  "hltDiMuon178RelTrkIsoFiltered0p4",
-							  "hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered12",
-							  "hltMu12TrkIsoVVLEle23CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter",
-							  "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLMuonlegL3IsoFiltered23",
-							  "hltMu23TrkIsoVVLEle12CaloIdLTrackIdLIsoVLElectronlegTrackIsoFilter"
+                                                          "hltEle27WPTightGsfTrackIsoFilter",
+                                                          "hltL3crIsoL1sMu22L1f0L2f10QL3f24QL3trkIsoFiltered0p09",
+                                                          # MonoHiggs
+                                                          "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered50Q",
+                                                          "hltEG33CaloIdLMWPMS2Filter",
+                                                          #"hltEle33CaloIdLPixelMatchFilter", #v6
+                                                          "hltEle33CaloIdLGsfTrkIdVLDPhiFilter", #v7
+                                                          "hltEG33CaloIdLGsfTrkIdVLMWPMS2Filter",
+                                                          "hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered27Q",
+                                                          "hltL3fL1sMu16orMu25L1f0L2f10QL3Filtered37Q",
+                                                          #"hltEle37CaloIdLPixelMatchUnseededFilter", #v6
+                                                          #"hltEle27CaloIdLPixelMatchUnseededFilter", #v6
+                                                          "hltEle37CaloIdLGsfTrkIdVLDPhiUnseededFilter", #v7
+                                                          "hltEle27CaloIdLGsfTrkIdVLDPhiUnseededFilter", #v7
+                                                          "hltL3fL1sMu16orMu25L1f0L2f25L3Filtered30",
+                                                          "hltDiMuonGlbFiltered30TrkFiltered11",
+                                                          #HLT_Mu33_Ele33_CaloIdL_MW_v
+                                                          "hltEle33CaloIdLGsfTrkIdVLDPhiUnseededFilter", 
+                                                          "hltL3fL1sMu22orMu25orMu20EG15orMu5EG20L1f0L2f10QL3Filtered33Q", 
+                                                          "hltL3fL1sMu22Or25L1f0L2f10QL3Filtered27Q", 
 										),
 				HLTprocess = cms.string("HLT"),
 
@@ -168,6 +193,11 @@ process.ntupler = cms.EDAnalyzer('Ntupler',
 				  eleMVALooseIso =  cms.InputTag('egmGsfElectronIDs:mvaEleID-Fall17-iso-V1-wpLoose'),
 				  eleMVAValuesMapTokenIso = cms.InputTag('electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17IsoV1Values'),		
 				  eleMVAValuesMapTokenNoIso = cms.InputTag('electronMVAValueMapProducer:ElectronMVAEstimatorRun2Fall17NoIsoV1Values'),	
+
+                                  # 2016
+                                  cutBasedIdTightSum16 = cms.InputTag("egmGsfElectronIDs:cutBasedElectronID-Summer16-80X-V1-tight"),
+                                  cutBasedIdHLT = cms.InputTag("egmGsfElectronIDs:cutBasedElectronHLTPreselection-Summer16-V1"),
+
                                   muInputTag = cms.InputTag("gmtStage2Digis","Muon","RECO"),
                                  isMC = cms.bool(False),
                                  doMuon = cms.bool(True),
