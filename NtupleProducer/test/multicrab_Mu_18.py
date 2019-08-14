@@ -6,7 +6,7 @@ config.General.workArea = 'crab_'+name
 config.General.transferLogs = False
 
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = 'runNtupler_monoH.py'
+config.JobType.psetName = 'runNtupler_monoH_18.py'
 config.JobType.outputFiles = ['TnP_ntuple.root']
 
 config.Data.inputDBS = 'global'

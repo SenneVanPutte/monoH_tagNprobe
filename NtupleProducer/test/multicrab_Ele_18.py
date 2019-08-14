@@ -7,7 +7,7 @@ config.General.workArea = 'crab_'+name
 config.General.transferLogs = True
 
 config.JobType.pluginName = 'Analysis'
-config.JobType.psetName = 'runNtupler_monoH.py'
+config.JobType.psetName = 'runNtupler_monoH_18.py'
 config.JobType.outputFiles = ['TnP_ntuple.root']
 
 config.Data.inputDBS = 'global'
@@ -15,8 +15,8 @@ config.Data.splitting = 'LumiBased'
 #config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions17/13TeV/ReReco/Cert_294927-306462_13TeV_EOY2018ReReco_Collisions17_JSON.txt'
 config.Data.lumiMask = '/afs/cern.ch/cms/CAF/CMSCOMM/COMM_DQM/certification/Collisions18/13TeV/ReReco/Cert_314472-325175_13TeV_17SeptEarlyReReco2018ABC_PromptEraD_Collisions18_JSON.txt'
 config.Data.publication = False
-config.Data.totalUnits = -1
-#config.Data.totalUnits = 5
+#config.Data.totalUnits = -1
+config.Data.totalUnits = 5
 config.Data.outLFNDirBase = '/store/user/svanputt/monoHiggs/' + name
 
 config.Site.storageSite = 'T2_BE_IIHE'
@@ -54,5 +54,6 @@ if __name__ == '__main__':
       config.Data.inputDataset = dataset[sample]
       config.Data.unitsPerJob = lumisPerJob[sample]
       config.Data.outputDatasetTag = sample+'_v1'
-      crabCommand('submit', config = config)
+      #crabCommand('submit', config=config, dryrun=True)
+      crabCommand('submit', config=config)
 
