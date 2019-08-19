@@ -9,6 +9,7 @@ config.General.transferLogs = True
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'runNtupler_monoH_18.py'
 config.JobType.outputFiles = ['TnP_ntuple.root']
+config.JobType.allowUndistributedCMSSW = True
 
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'LumiBased'
@@ -50,26 +51,6 @@ if __name__ == '__main__':
       'Run2018D',        
       ]
 
-   #dataset = {
-   #   'Run2018A' : '/EGamma/Run2018A-17Sep2018-v1/MINIAOD ',
-   #   'Run2018B' : '/EGamma/Run2018B-17Sep2018-v1/MINIAOD ',
-   #   'Run2018C' : '/EGamma/Run2018C-17Sep2018-v1/MINIAOD ', 
-   #   }
-
-
-   ##nevents = -1 
-   #lumisPerJob = {
-   #   'Run2018A':        100,
-   #   'Run2018B':        100,
-   #   'Run2018C':        100,
-   #   }
-
-   #listOfSamples = [
-   #   'Run2018A',        
-   #   'Run2018B',        
-   #   'Run2018C',        
-   #   ]
-
 
    listOfSamples.reverse()
    for sample in listOfSamples:
@@ -78,6 +59,6 @@ if __name__ == '__main__':
       config.Data.inputDataset = dataset[sample]
       config.Data.unitsPerJob = lumisPerJob[sample]
       config.Data.outputDatasetTag = sample+'_v1'
-      crabCommand('submit', config=config, dryrun=True)
-      #crabCommand('submit', config=config)
+      #crabCommand('submit', config=config, dryrun=True)
+      crabCommand('submit', config=config)
 
