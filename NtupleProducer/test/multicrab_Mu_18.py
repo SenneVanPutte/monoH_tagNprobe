@@ -25,9 +25,9 @@ if __name__ == '__main__':
    from CRABAPI.RawCommand import crabCommand
 
    dataset = {
-      'Run2018A' : '/EGamma/Run2018A-17Sep2018-v1/MINIAOD ',
-      'Run2018B' : '/EGamma/Run2018B-17Sep2018-v1/MINIAOD ',
-      'Run2018C' : '/EGamma/Run2018C-17Sep2018-v1/MINIAOD ', 
+      'Run2018A' : '/SingleMuon/Run2018A-17Sep2018-v1/MINIAOD ',
+      'Run2018B' : '/SingleMuon/Run2018B-17Sep2018-v1/MINIAOD ',
+      'Run2018C' : '/SingleMuon/Run2018C-17Sep2018-v1/MINIAOD ', 
       }
 
 
