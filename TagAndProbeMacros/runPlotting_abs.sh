@@ -21,5 +21,5 @@ then
     HistFiles=$2
 fi
 
-PLOT_MAC="/user/svanputt/monoHiggs/TnP/CMSSW_9_4_9/src/TagAndProbe_Trigger/TagAndProbeMacros/plotEfficiency.C"
+PLOT_MAC="/user/svanputt/monoHiggs/git_TnP/CMSSW_10_2_13/src/TagAndProbe_Trigger/TagAndProbeMacros/plotEfficiency.C"
 root -l -b -q "$PLOT_MAC(\"$AllFiles\",\"$HistFiles\")"  
