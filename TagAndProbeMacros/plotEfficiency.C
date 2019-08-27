@@ -73,6 +73,7 @@ while(!inRootFile.eof())
 
         c->SetLogy(0);
 	h_total = (TH1F*)f1->Get(total.Data());
+        cout << "h_total grabbed from " << total.Data() << endl; 
 	h_pass = (TH1F*)f1->Get(pass.Data());
         if(total.Contains("pt")){h_total->GetXaxis()->SetTitle("pT in (GeV)");h_pass->GetXaxis()->SetTitle("pT in (GeV)");}
         if(total.Contains("eta")){h_total->GetXaxis()->SetTitle("eta");h_total->GetXaxis()->SetTitle("eta");}

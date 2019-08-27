@@ -1,0 +1,24 @@
+# Create rootfiles.txt
+find /pnfs/iihe/cms/store/user/svanputt/monoHiggs/Electron_Ntuple_X_monoH_Triggers_v1/SingleElectron/RunXr_v1/*/0000/ | grep .root >> Electron_RunXr_rootfiles.txt
+
+# create
+./cNr_iihe_tnp_X.sh TagAndProbe_Lep_X.C
+ select dest dir
+ select right txt with file paths 
+
+# make results
+./../runPlotting_abs.sh ../ele_monoH_hnames.txt
+
+# plot 
+python ../plotEff.py --root ../AllRootFiles.txt --hist ../ele_monoH_hnames.txt -o results/histograms.root
+
+# plot run overview
+python plotRuns_16.py --trig ele_trignames.txt -o plots_2017v5 -s
+
+# make collection file
+python mv_output
+
+# include systematics
+python make_all_sys.py 
+
+

@@ -5,8 +5,8 @@
 // found on file: TnP_ntuple.root
 //////////////////////////////////////////////////////////
 
-#ifndef TagAndProbe_h
-#define TagAndProbe_h
+#ifndef TagAndProbe_16_h
+#define TagAndProbe_16_h
 
 #include <TROOT.h>
 #include <TChain.h>
@@ -23,7 +23,7 @@
 
 using namespace std;
 
-class TagAndProbe {
+class TagAndProbe_16 {
 public :
    TTree          *fChain;   //!pointer to the analyzed TTree or TChain
    Int_t           fCurrent; //!current Tree number in a TChain
@@ -70,6 +70,11 @@ public :
    vector<bool>    *passEleIdLoose;
    vector<bool>    *passEleIdMedium;
    vector<bool>    *passEleIdTight;
+
+   // 2016
+   vector<bool>    *passCutBasedIdTightSum16;
+   vector<bool>    *passCutBasedIdHLT;
+
    vector<bool>    *passMVAnoIsoWP90;
    vector<bool>    *passMVAnoIsoWP80;
    vector<bool>    *passMVAnoIsoWPLoose;
@@ -81,13 +86,13 @@ public :
    vector<bool>    *hasMatchedToZ;
    vector<string>  *triggerPath;
    vector<bool>    *triggerDecision;
-   vector<bool>    *passFilterEle35;
-   vector<bool>    *passFilterEle23_12_leg1;
+   vector<bool>    *passFilterEle27;
+/*   vector<bool>    *passFilterEle23_12_leg1;
    vector<bool>    *passFilterEle23_12_leg2;
    vector<bool>    *passFilterMu12_Ele23_legEle;
    vector<bool>    *passFilterMu23_Ele12_legEle;
    vector<bool>    *L1EG_35;
-   vector<bool>    *L1EG_23_12;
+   vector<bool>    *L1EG_23_12;*/
    Int_t           nMu;
    vector<double>  *mu_pt;
    vector<double>  *mu_eta;
@@ -150,30 +155,34 @@ public :
    vector<int>     *mu_InTimeMuon;
    vector<int>     *mu_MultiIsoLoose;
    vector<int>     *mu_MultiIsoMedium;
-   vector<bool>    *passFilterIsoMu27;
-   vector<bool>    *passFilterMu17_Mu8_leg1;
+   vector<bool>    *passFilterIsoMu24;
+/*   vector<bool>    *passFilterMu17_Mu8_leg1;
    vector<bool>    *passFilterMu17_Mu8_leg2;
    vector<bool>    *passFilterMu17_Mu8_IsoLeg;
    vector<bool>    *passFilterMu12_Ele23_legMu;
-   vector<bool>    *passFilterMu23_Ele12_legMu;
+   vector<bool>    *passFilterMu23_Ele12_legMu;*/
    // MonoHiggs
-   vector<bool>    *passFilterDoubleEle33;
-   vector<bool>    *passFilterDoubleEle33_leg;
-   vector<bool>    *passFilterDoubleEle27_leg;
-   vector<bool>    *passFilterDoubleEle25_leg;
-   vector<bool>    *passFilterEle27_37_leg1;
-   vector<bool>    *passFilterEle27_37_leg2;
+   vector<bool>    *passFilterDoubleEle33_MW_leg;
+   vector<bool>    *passFilterDoubleEle33_GsfTrkIdVL_leg;
+   vector<bool>    *passFilterDoubleEle33_GsfTrkIdVL_MW_leg;
+   //vector<bool>    *passFilterEle27_37_leg1;
+   //vector<bool>    *passFilterEle27_37_leg2;
    vector<bool>    *passFilterMu27_Ele37_legEle;
+   vector<bool>    *passFilterMu27_Ele37_emu_legEle;
    vector<bool>    *passFilterMu37_Ele27_legEle;
 
-   vector<bool>    *passFilterMu17;
+   vector<bool>    *passFilterMu33_Ele33_legEle;
+
    vector<bool>    *passFilterMu50;
-   vector<bool>    *passFilterMu37_TkMu27_leg1;
-   vector<bool>    *passFilterMu37_TkMu27_leg2;
+   vector<bool>    *passFilterMu30_TkMu11_leg1;
+   vector<bool>    *passFilterMu30_TkMu11_leg2;
    vector<bool>    *passFilterMu27_Ele37_legMu;
    vector<bool>    *passFilterMu37_Ele27_legMu;
-   vector<bool>    *passFilterMu27_Ele37_16L1_legMu;
-   vector<bool>    *passFilterMu37_Ele27_16L1_legMu;
+
+   vector<bool>    *passFilterMu33_Ele33_legMu;
+   vector<bool>    *passFilterMu33_Ele33_emu_legMu;
+   //vector<bool>    *passFilterMu27_Ele37_16L1_legMu;
+   //vector<bool>    *passFilterMu37_Ele27_16L1_legMu;
 
 
    // List of branches
@@ -216,6 +225,11 @@ public :
    TBranch        *b_passEleIdLoose;   //!
    TBranch        *b_passEleIdMedium;   //!
    TBranch        *b_passEleIdTight;   //!
+
+   // 2016
+   TBranch        *b_passCutBasedIdTightSum16;   //!
+   TBranch        *b_passCutBasedIdHLT;   //!
+
    TBranch        *b_passMVAnoIsoWP90;   //!
    TBranch        *b_passMVAnoIsoWP80;   //!
    TBranch        *b_passMVAnoIsoWPLoose;   //!
@@ -227,13 +241,13 @@ public :
    TBranch        *b_hasMatchedToZ;   //!
    TBranch        *b_triggerPath;   //!
    TBranch        *b_triggerDecision;   //!
-   TBranch        *b_passFilterEle35;   //!
-   TBranch        *b_passFilterEle23_12_leg1;   //!
+   TBranch        *b_passFilterEle27;   //!
+/*   TBranch        *b_passFilterEle23_12_leg1;   //!
    TBranch        *b_passFilterEle23_12_leg2;   //!
    TBranch        *b_passFilterMu12_Ele23_legEle;   //!
    TBranch        *b_passFilterMu23_Ele12_legEle;   //!
    TBranch        *b_L1EG_35;   //!
-   TBranch        *b_L1EG_23_12;   //!
+   TBranch        *b_L1EG_23_12;   //!*/
    TBranch        *b_nMu;   //!
    TBranch        *b_mu_pt;   //!
    TBranch        *b_mu_eta;   //!
@@ -296,33 +310,37 @@ public :
    TBranch        *b_mu_InTimeMuon;   //!
    TBranch        *b_mu_MultiIsoLoose;   //!
    TBranch        *b_mu_MultiIsoMedium;   //!
-   TBranch        *b_passFilterIsoMu27;   //!
-   TBranch        *b_passFilterMu17_Mu8_leg1;   //!
+   TBranch        *b_passFilterIsoMu24;   //!
+/*   TBranch        *b_passFilterMu17_Mu8_leg1;   //!
    TBranch        *b_passFilterMu17_Mu8_leg2;   //!
    TBranch        *b_passFilterMu17_Mu8_IsoLeg;   //!
    TBranch        *b_passFilterMu12_Ele23_legMu;   //!
-   TBranch        *b_passFilterMu23_Ele12_legMu;   //!
+   TBranch        *b_passFilterMu23_Ele12_legMu;   //!*/
    // MonoHiggs
-   TBranch        *b_passFilterDoubleEle33;   //!
-   TBranch        *b_passFilterDoubleEle33_leg;   //!
-   TBranch        *b_passFilterDoubleEle27_leg;   //!
-   TBranch        *b_passFilterDoubleEle25_leg;   //!
-   TBranch        *b_passFilterEle27_37_leg1;   //!
-   TBranch        *b_passFilterEle27_37_leg2;   //!
+   TBranch        *b_passFilterDoubleEle33_MW_leg;   //!
+   TBranch        *b_passFilterDoubleEle33_GsfTrkIdVL_leg;   //!
+   TBranch        *b_passFilterDoubleEle33_GsfTrkIdVL_MW_leg;   //!
+   //TBranch        *b_passFilterEle27_37_leg1;   //!
+   //TBranch        *b_passFilterEle27_37_leg2;   //!
    TBranch        *b_passFilterMu27_Ele37_legEle;   //!
+   TBranch        *b_passFilterMu27_Ele37_emu_legEle;   //!
    TBranch        *b_passFilterMu37_Ele27_legEle;   //!
 
-   TBranch        *b_passFilterMu17;   //!
+   TBranch        *b_passFilterMu33_Ele33_legEle;   //!
+
    TBranch        *b_passFilterMu50;   //!
-   TBranch        *b_passFilterMu37_TkMu27_leg1;   //!
-   TBranch        *b_passFilterMu37_TkMu27_leg2;   //!
+   TBranch        *b_passFilterMu30_TkMu11_leg1;   //!
+   TBranch        *b_passFilterMu30_TkMu11_leg2;   //!
    TBranch        *b_passFilterMu27_Ele37_legMu;   //!
    TBranch        *b_passFilterMu37_Ele27_legMu;   //!
-   TBranch        *b_passFilterMu27_Ele37_16L1_legMu;   //!
-   TBranch        *b_passFilterMu37_Ele27_16L1_legMu;   //!
 
-   TagAndProbe(TTree *tree=0);
-   virtual ~TagAndProbe();
+   TBranch        *b_passFilterMu33_Ele33_legMu;   //!
+   TBranch        *b_passFilterMu33_Ele33_emu_legMu;   //!
+   //TBranch        *b_passFilterMu27_Ele37_16L1_legMu;   //!
+   //TBranch        *b_passFilterMu37_Ele27_16L1_legMu;   //!
+
+   TagAndProbe_16(TTree *tree=0);
+   virtual ~TagAndProbe_16();
    virtual Int_t    Cut(Long64_t entry);
    virtual Int_t    GetEntry(Long64_t entry);
    virtual Long64_t LoadTree(Long64_t entry);
@@ -331,16 +349,17 @@ public :
    virtual Bool_t   Notify();
    virtual void     Show(Long64_t entry = -1);
    bool    HWW_Electron_Def(int i, double eta);
-   bool    HWW_Electron_17v5(int i, double eta);
    bool    HWW_Electron_NewDef(int i, double eta);
+   bool    HWW_Electron_2016(int i, double eta);
    bool    HWW_Muon_Def(int i, double pt);
+   bool    HWW_Muon_2016(int i, double pt);
 
 };
 
 #endif
 
-#ifdef TagAndProbe_cxx
-TagAndProbe::TagAndProbe(TTree *tree) : fChain(0) 
+#ifdef TagAndProbe_16_cxx
+TagAndProbe_16::TagAndProbe_16(TTree *tree) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
@@ -356,19 +375,19 @@ TagAndProbe::TagAndProbe(TTree *tree) : fChain(0)
    Init(tree);
 }
 
-TagAndProbe::~TagAndProbe()
+TagAndProbe_16::~TagAndProbe_16()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t TagAndProbe::GetEntry(Long64_t entry)
+Int_t TagAndProbe_16::GetEntry(Long64_t entry)
 {
 // Read contents of entry.
    if (!fChain) return 0;
    return fChain->GetEntry(entry);
 }
-Long64_t TagAndProbe::LoadTree(Long64_t entry)
+Long64_t TagAndProbe_16::LoadTree(Long64_t entry)
 {
 // Set the environment to read one entry
    if (!fChain) return -5;
@@ -381,7 +400,7 @@ Long64_t TagAndProbe::LoadTree(Long64_t entry)
    return centry;
 }
 
-void TagAndProbe::Init(TTree *tree)
+void TagAndProbe_16::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -422,6 +441,11 @@ void TagAndProbe::Init(TTree *tree)
    passEleIdLoose = 0;
    passEleIdMedium = 0;
    passEleIdTight = 0;
+
+   // 2016
+   passCutBasedIdTightSum16 = 0;
+   passCutBasedIdHLT = 0;
+
    passMVAnoIsoWP90 = 0;
    passMVAnoIsoWP80 = 0;
    passMVAnoIsoWPLoose = 0;
@@ -433,13 +457,13 @@ void TagAndProbe::Init(TTree *tree)
    hasMatchedToZ = 0;
    triggerPath = 0;
    triggerDecision = 0;
-   passFilterEle35 = 0;
-   passFilterEle23_12_leg1 = 0;
+   passFilterEle27 = 0;
+/*   passFilterEle23_12_leg1 = 0;
    passFilterEle23_12_leg2 = 0;
    passFilterMu12_Ele23_legEle = 0;
    passFilterMu23_Ele12_legEle = 0;
    L1EG_35 = 0;
-   L1EG_23_12 = 0;
+   L1EG_23_12 = 0;*/
    mu_pt = 0;
    mu_eta = 0;
    mu_phi = 0;
@@ -501,29 +525,31 @@ void TagAndProbe::Init(TTree *tree)
    mu_InTimeMuon = 0;
    mu_MultiIsoLoose = 0;
    mu_MultiIsoMedium = 0;
-   passFilterIsoMu27 = 0;
-   passFilterMu17_Mu8_leg1 = 0;
+   passFilterIsoMu24 = 0;
+/*   passFilterMu17_Mu8_leg1 = 0;
    passFilterMu17_Mu8_leg2 = 0;
    passFilterMu17_Mu8_IsoLeg = 0;
    passFilterMu12_Ele23_legMu = 0;
-   passFilterMu23_Ele12_legMu = 0;
+   passFilterMu23_Ele12_legMu = 0;*/
    // MonoHiggs   
-   passFilterDoubleEle33 = 0;
-   passFilterDoubleEle33_leg = 0;
-   passFilterDoubleEle27_leg = 0;
-   passFilterDoubleEle25_leg = 0;
-   passFilterEle27_37_leg1 = 0;
-   passFilterEle27_37_leg2 = 0;
+   passFilterDoubleEle33_MW_leg = 0;
+   passFilterDoubleEle33_GsfTrkIdVL_leg = 0;
+   passFilterDoubleEle33_GsfTrkIdVL_MW_leg = 0;
+   //passFilterEle27_37_leg1 = 0;
+   //passFilterEle27_37_leg2 = 0;
    passFilterMu27_Ele37_legEle = 0;
+   passFilterMu27_Ele37_emu_legEle = 0;
    passFilterMu37_Ele27_legEle = 0;
-   passFilterMu17 = 0;
+   passFilterMu33_Ele33_legEle = 0;
    passFilterMu50 = 0;
-   passFilterMu37_TkMu27_leg1 = 0;
-   passFilterMu37_TkMu27_leg2 = 0;
+   passFilterMu30_TkMu11_leg1 = 0;
+   passFilterMu30_TkMu11_leg2 = 0;
    passFilterMu27_Ele37_legMu = 0;
    passFilterMu37_Ele27_legMu = 0;
-   passFilterMu27_Ele37_16L1_legMu = 0;
-   passFilterMu37_Ele27_16L1_legMu = 0;
+   passFilterMu33_Ele33_legMu = 0;
+   passFilterMu33_Ele33_emu_legMu = 0;
+   //passFilterMu27_Ele37_16L1_legMu = 0;
+   //passFilterMu37_Ele27_16L1_legMu = 0;
 
    // Set branch addresses and branch pointers
    if (!tree) return;
@@ -570,6 +596,11 @@ void TagAndProbe::Init(TTree *tree)
    fChain->SetBranchAddress("passEleIdLoose", &passEleIdLoose, &b_passEleIdLoose);
    fChain->SetBranchAddress("passEleIdMedium", &passEleIdMedium, &b_passEleIdMedium);
    fChain->SetBranchAddress("passEleIdTight", &passEleIdTight, &b_passEleIdTight);
+
+   // 2016
+   fChain->SetBranchAddress("passCutBasedIdTightSum16", &passCutBasedIdTightSum16, &b_passCutBasedIdTightSum16);
+   fChain->SetBranchAddress("passCutBasedIdHLT", &passCutBasedIdHLT, &b_passCutBasedIdHLT);
+
    fChain->SetBranchAddress("passMVAnoIsoWP90", &passMVAnoIsoWP90, &b_passMVAnoIsoWP90);
    fChain->SetBranchAddress("passMVAnoIsoWP80", &passMVAnoIsoWP80, &b_passMVAnoIsoWP80);
    fChain->SetBranchAddress("passMVAnoIsoWPLoose", &passMVAnoIsoWPLoose, &b_passMVAnoIsoWPLoose);
@@ -581,13 +612,13 @@ void TagAndProbe::Init(TTree *tree)
    fChain->SetBranchAddress("hasMatchedToZ", &hasMatchedToZ, &b_hasMatchedToZ);
    fChain->SetBranchAddress("triggerPath", &triggerPath, &b_triggerPath);
    fChain->SetBranchAddress("triggerDecision", &triggerDecision, &b_triggerDecision);
-   fChain->SetBranchAddress("passFilterEle35", &passFilterEle35, &b_passFilterEle35);
-   fChain->SetBranchAddress("passFilterEle23_12_leg1", &passFilterEle23_12_leg1, &b_passFilterEle23_12_leg1);
+   fChain->SetBranchAddress("passFilterEle27", &passFilterEle27, &b_passFilterEle27);
+/*   fChain->SetBranchAddress("passFilterEle23_12_leg1", &passFilterEle23_12_leg1, &b_passFilterEle23_12_leg1);
    fChain->SetBranchAddress("passFilterEle23_12_leg2", &passFilterEle23_12_leg2, &b_passFilterEle23_12_leg2);
    fChain->SetBranchAddress("passFilterMu12_Ele23_legEle", &passFilterMu12_Ele23_legEle, &b_passFilterMu12_Ele23_legEle);
    fChain->SetBranchAddress("passFilterMu23_Ele12_legEle", &passFilterMu23_Ele12_legEle, &b_passFilterMu23_Ele12_legEle);
    fChain->SetBranchAddress("L1EG_35", &L1EG_35, &b_L1EG_35);
-   fChain->SetBranchAddress("L1EG_23_12", &L1EG_23_12, &b_L1EG_23_12);
+   fChain->SetBranchAddress("L1EG_23_12", &L1EG_23_12, &b_L1EG_23_12);*/
    fChain->SetBranchAddress("nMu", &nMu, &b_nMu);
    fChain->SetBranchAddress("mu_pt", &mu_pt, &b_mu_pt);
    fChain->SetBranchAddress("mu_eta", &mu_eta, &b_mu_eta);
@@ -650,35 +681,38 @@ void TagAndProbe::Init(TTree *tree)
    fChain->SetBranchAddress("mu_InTimeMuon", &mu_InTimeMuon, &b_mu_InTimeMuon);
    fChain->SetBranchAddress("mu_MultiIsoLoose", &mu_MultiIsoLoose, &b_mu_MultiIsoLoose);
    fChain->SetBranchAddress("mu_MultiIsoMedium", &mu_MultiIsoMedium, &b_mu_MultiIsoMedium);
-   fChain->SetBranchAddress("passFilterIsoMu27", &passFilterIsoMu27, &b_passFilterIsoMu27);
-   fChain->SetBranchAddress("passFilterMu17_Mu8_leg1", &passFilterMu17_Mu8_leg1, &b_passFilterMu17_Mu8_leg1);
+   fChain->SetBranchAddress("passFilterIsoMu24", &passFilterIsoMu24, &b_passFilterIsoMu24);
+/*   fChain->SetBranchAddress("passFilterMu17_Mu8_leg1", &passFilterMu17_Mu8_leg1, &b_passFilterMu17_Mu8_leg1);
    fChain->SetBranchAddress("passFilterMu17_Mu8_leg2", &passFilterMu17_Mu8_leg2, &b_passFilterMu17_Mu8_leg2);
    fChain->SetBranchAddress("passFilterMu17_Mu8_IsoLeg", &passFilterMu17_Mu8_IsoLeg, &b_passFilterMu17_Mu8_IsoLeg);
    fChain->SetBranchAddress("passFilterMu12_Ele23_legMu", &passFilterMu12_Ele23_legMu, &b_passFilterMu12_Ele23_legMu);
-   fChain->SetBranchAddress("passFilterMu23_Ele12_legMu", &passFilterMu23_Ele12_legMu, &b_passFilterMu23_Ele12_legMu);
+   fChain->SetBranchAddress("passFilterMu23_Ele12_legMu", &passFilterMu23_Ele12_legMu, &b_passFilterMu23_Ele12_legMu);*/
    // MonoHiggs
-   fChain->SetBranchAddress("passFilterDoubleEle33", &passFilterDoubleEle33, &b_passFilterDoubleEle33);
-   fChain->SetBranchAddress("passFilterDoubleEle33_leg", &passFilterDoubleEle33_leg, &b_passFilterDoubleEle33_leg);
-   fChain->SetBranchAddress("passFilterDoubleEle27_leg", &passFilterDoubleEle27_leg, &b_passFilterDoubleEle27_leg);
-   fChain->SetBranchAddress("passFilterDoubleEle25_leg", &passFilterDoubleEle25_leg, &b_passFilterDoubleEle25_leg);
-   fChain->SetBranchAddress("passFilterEle27_37_leg1", &passFilterEle27_37_leg1, &b_passFilterEle27_37_leg1);
-   fChain->SetBranchAddress("passFilterEle27_37_leg2", &passFilterEle27_37_leg2, &b_passFilterEle27_37_leg2);
+   fChain->SetBranchAddress("passFilterDoubleEle33_MW_leg", &passFilterDoubleEle33_MW_leg, &b_passFilterDoubleEle33_MW_leg);
+   fChain->SetBranchAddress("passFilterDoubleEle33_GsfTrkIdVL_leg", &passFilterDoubleEle33_GsfTrkIdVL_leg, &b_passFilterDoubleEle33_GsfTrkIdVL_leg);
+   fChain->SetBranchAddress("passFilterDoubleEle33_GsfTrkIdVL_MW_leg", &passFilterDoubleEle33_GsfTrkIdVL_MW_leg, &b_passFilterDoubleEle33_GsfTrkIdVL_MW_leg);
+   //fChain->SetBranchAddress("passFilterEle27_37_leg1", &passFilterEle27_37_leg1, &b_passFilterEle27_37_leg1);
+   //fChain->SetBranchAddress("passFilterEle27_37_leg2", &passFilterEle27_37_leg2, &b_passFilterEle27_37_leg2);
    fChain->SetBranchAddress("passFilterMu27_Ele37_legEle", &passFilterMu27_Ele37_legEle, &b_passFilterMu27_Ele37_legEle);
+   fChain->SetBranchAddress("passFilterMu27_Ele37_emu_legEle", &passFilterMu27_Ele37_emu_legEle, &b_passFilterMu27_Ele37_emu_legEle);
    fChain->SetBranchAddress("passFilterMu37_Ele27_legEle", &passFilterMu37_Ele27_legEle, &b_passFilterMu37_Ele27_legEle);
+   fChain->SetBranchAddress("passFilterMu33_Ele33_legEle", &passFilterMu33_Ele33_legEle, &b_passFilterMu33_Ele33_legEle);
 
-   fChain->SetBranchAddress("passFilterMu17", &passFilterMu17, &b_passFilterMu17);
    fChain->SetBranchAddress("passFilterMu50", &passFilterMu50, &b_passFilterMu50);
-   fChain->SetBranchAddress("passFilterMu37_TkMu27_leg1", &passFilterMu37_TkMu27_leg1, &b_passFilterMu37_TkMu27_leg1);
-   fChain->SetBranchAddress("passFilterMu37_TkMu27_leg2", &passFilterMu37_TkMu27_leg2, &b_passFilterMu37_TkMu27_leg2);
+   fChain->SetBranchAddress("passFilterMu30_TkMu11_leg1", &passFilterMu30_TkMu11_leg1, &b_passFilterMu30_TkMu11_leg1);
+   fChain->SetBranchAddress("passFilterMu30_TkMu11_leg2", &passFilterMu30_TkMu11_leg2, &b_passFilterMu30_TkMu11_leg2);
    fChain->SetBranchAddress("passFilterMu27_Ele37_legMu", &passFilterMu27_Ele37_legMu, &b_passFilterMu27_Ele37_legMu);
    fChain->SetBranchAddress("passFilterMu37_Ele27_legMu", &passFilterMu37_Ele27_legMu, &b_passFilterMu37_Ele27_legMu);
-   fChain->SetBranchAddress("passFilterMu27_Ele37_16L1_legMu", &passFilterMu27_Ele37_16L1_legMu, &b_passFilterMu27_Ele37_16L1_legMu);
-   fChain->SetBranchAddress("passFilterMu37_Ele27_16L1_legMu", &passFilterMu37_Ele27_16L1_legMu, &b_passFilterMu37_Ele27_16L1_legMu);
+
+   fChain->SetBranchAddress("passFilterMu33_Ele33_legMu", &passFilterMu33_Ele33_legMu, &b_passFilterMu33_Ele33_legMu);
+   fChain->SetBranchAddress("passFilterMu33_Ele33_emu_legMu", &passFilterMu33_Ele33_emu_legMu, &b_passFilterMu33_Ele33_emu_legMu);
+   //fChain->SetBranchAddress("passFilterMu27_Ele37_16L1_legMu", &passFilterMu27_Ele37_16L1_legMu, &b_passFilterMu27_Ele37_16L1_legMu);
+   //fChain->SetBranchAddress("passFilterMu37_Ele27_16L1_legMu", &passFilterMu37_Ele27_16L1_legMu, &b_passFilterMu37_Ele27_16L1_legMu);
 
    Notify();
 }
 
-Bool_t TagAndProbe::Notify()
+Bool_t TagAndProbe_16::Notify()
 {
    // The Notify() function is called when a new file is opened. This
    // can be either for a new TTree in a TChain or when when a new TTree
@@ -689,18 +723,18 @@ Bool_t TagAndProbe::Notify()
    return kTRUE;
 }
 
-void TagAndProbe::Show(Long64_t entry)
+void TagAndProbe_16::Show(Long64_t entry)
 {
 // Print contents of entry.
 // If entry is not specified, print current entry
    if (!fChain) return;
    fChain->Show(entry);
 }
-Int_t TagAndProbe::Cut(Long64_t entry)
+Int_t TagAndProbe_16::Cut(Long64_t entry)
 {
 // This function may be called from Loop.
 // returns  1 if entry is accepted.
 // returns -1 otherwise.
    return 1;
 }
-#endif // #ifdef TagAndProbe_cxx
+#endif // #ifdef TagAndProbe_16_cxx
