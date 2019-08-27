@@ -8,6 +8,7 @@ config.General.transferLogs = False
 config.JobType.pluginName = 'Analysis'
 config.JobType.psetName = 'runNtupler_monoH_18.py'
 config.JobType.outputFiles = ['TnP_ntuple.root']
+config.JobType.allowUndistributedCMSSW = True
 
 config.Data.inputDBS = 'global'
 config.Data.splitting = 'LumiBased'
@@ -24,28 +25,28 @@ config.Site.blacklist = ['T2_BR_SPRACE', 'T2_EE_Estonia']
 if __name__ == '__main__':
    from CRABAPI.RawCommand import crabCommand
 
-    dataset = {
-       'Run2018A' : '/SingleMuon/Run2018A-17Sep2018-v2/MINIAOD',
-       'Run2018B' : '/SingleMuon/Run2018B-17Sep2018-v1/MINIAOD', 
-       'Run2018C' : '/SingleMuon/Run2018C-17Sep2018-v1/MINIAOD', 
-       'Run2018D' : '/SingleMuon/Run2018D-PromptReco-v2/MINIAOD', 
-       }
-    
-    
-    #nevents = -1 
-    lumisPerJob = {
-       'Run2018A':        100,
-       'Run2018B':        100,
-       'Run2018C':        100,
-       'Run2018D':        100,
-       }
-    
-    listOfSamples = [
-       'Run2018A',        
-       'Run2018B',        
-       'Run2018C',        
-       'Run2018D',        
-       ]
+   dataset = {
+      'Run2018A' : '/SingleMuon/Run2018A-17Sep2018-v2/MINIAOD',
+      'Run2018B' : '/SingleMuon/Run2018B-17Sep2018-v1/MINIAOD', 
+      'Run2018C' : '/SingleMuon/Run2018C-17Sep2018-v1/MINIAOD', 
+      'Run2018D' : '/SingleMuon/Run2018D-PromptReco-v2/MINIAOD', 
+      }
+   
+   
+   #nevents = -1 
+   lumisPerJob = {
+      'Run2018A':        100,
+      'Run2018B':        100,
+      'Run2018C':        100,
+      'Run2018D':        100,
+      }
+   
+   listOfSamples = [
+      'Run2018A',        
+      'Run2018B',        
+      'Run2018C',        
+      'Run2018D',        
+      ]
 
    listOfSamples.reverse()
    for sample in listOfSamples:
