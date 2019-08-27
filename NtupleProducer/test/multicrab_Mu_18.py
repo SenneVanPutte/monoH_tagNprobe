@@ -28,8 +28,8 @@ if __name__ == '__main__':
 
    dataset = {
       'Run2018A' : '/SingleMuon/Run2018A-17Sep2018-v2/MINIAOD',
-      'Run2018B' : '/SingleMuon/Run2018B-17Sep2018-v2/MINIAOD', 
-      'Run2018C' : '/SingleMuon/Run2018C-17Sep2018-v2/MINIAOD', 
+      'Run2018B' : '/SingleMuon/Run2018B-17Sep2018-v1/MINIAOD', 
+      'Run2018C' : '/SingleMuon/Run2018C-17Sep2018-v1/MINIAOD', 
       'Run2018D' : '/SingleMuon/Run2018D-PromptReco-v2/MINIAOD', 
       }
    
@@ -43,10 +43,10 @@ if __name__ == '__main__':
       }
    
    listOfSamples = [
-      'Run2018A',        
+      #'Run2018A',        
       'Run2018B',        
       'Run2018C',        
-      'Run2018D',        
+      #'Run2018D',        
       ]
 
    listOfSamples.reverse()

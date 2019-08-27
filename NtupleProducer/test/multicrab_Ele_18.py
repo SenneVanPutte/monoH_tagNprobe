@@ -30,8 +30,8 @@ if __name__ == '__main__':
 
    dataset = {
       'Run2018A' : '/EGamma/Run2018A-17Sep2018-v2/MINIAOD',
-      'Run2018B' : '/EGamma/Run2018B-17Sep2018-v2/MINIAOD', 
-      'Run2018C' : '/EGamma/Run2018C-17Sep2018-v2/MINIAOD', 
+      'Run2018B' : '/EGamma/Run2018B-17Sep2018-v1/MINIAOD', 
+      'Run2018C' : '/EGamma/Run2018C-17Sep2018-v1/MINIAOD', 
       'Run2018D' : '/EGamma/Run2018D-PromptReco-v2/MINIAOD', 
       }
    
@@ -45,10 +45,10 @@ if __name__ == '__main__':
       }
    
    listOfSamples = [
-      'Run2018A',        
+      #'Run2018A',        
       'Run2018B',        
       'Run2018C',        
-      'Run2018D',        
+      #'Run2018D',        
       ]
 
 
